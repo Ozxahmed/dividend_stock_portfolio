@@ -1,0 +1,16 @@
+name: stocks
+channels:
+  - conda-forge
+channel_priority: strict
+dependencies:
+  - python=3.12
+  - pandas
+  - numpy
+  - psycopg  # modern Postgres driver (psycopg3)
+  - jupyterlab
+  - ipykernel  # usually auto-installed via .condarc, kept for clarity
+  # optional, nice to have:
+  - ipython
+  - pytz # provides accurate and cross-platform timezone calculations
+  - requests
+  - matplotlib
