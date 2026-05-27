@@ -9,6 +9,7 @@ venv/
 
 # Environment / secrets
 .env
+.secrets/
 *.pem
 *.key
 credentials.json
@@ -24,3 +25,5 @@ credentials.json
 *.xlsx
 *.sqlite
 *.db
+*.json
+data/raw/

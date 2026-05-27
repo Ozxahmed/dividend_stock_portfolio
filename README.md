@@ -1,5 +1,7 @@
 # Dividend Stock Portfolio
 
+This project answers the question: “Can I build a dividend portfolio that can return a minimum 8% return (dividend + stock appreciation), while beating low-risk alternatives after accounting for volatility and drawdowns?”
+
 ## Metrics
 
 Metrics split across **five Buckets**:
@@ -29,7 +31,9 @@ These indicate whether the dividend is sustainable.
 - EPS Growth: Supports future dividend increases
 - Free Cash Flow Growth: Best sign dividend can grow
 
-`Payout ratio = dividend_paid / free_cash_flow`
+earnings_payout_ratio = annual_dividend_per_share / eps
+
+fcf_payout_ratio = total_dividends_paid / free_cash_flow
 
 ### 3. Total return metrics
 
@@ -43,7 +47,7 @@ Optimizing for total returns: dividend + stock price appreciation.
 - Beta: Market sensitivity
 - Volatility: Risk profile
 
-`Total Return = price_return + dividend_return`
+Total Return = price_return + dividend_return
 
 ### 4. Valuation metrics
 
@@ -58,7 +62,7 @@ These help avoid overpaying for dividend stocks.
 
 Useful dividend-specific signal:
 
-  `current_yield / five_year_average_yield`
+  current_yield / five_year_average_yield
 
 If current yield is meaningfully above historical average, the stock may be undervalued — or the market may be pricing in trouble.
 
@@ -75,11 +79,11 @@ If current yield is meaningfully above historical average, the stock may be unde
 
 Example portfolio-level metrics:
 
-  `portfolio_yield = sum(position_weight * dividend_yield)`
+  portfolio_yield = sum(position_weight * dividend_yield)
 
-  `portfolio_dividend_growth = sum(position_weight * dividend_growth_rate)`
+  portfolio_dividend_growth = sum(position_weight * dividend_growth_rate)
 
-  `portfolio_beta = sum(position_weight * beta)`
+  portfolio_beta = sum(position_weight * beta)
 
 ## Scoring Model
 

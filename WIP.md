@@ -114,4 +114,9 @@ Add Docker, GitHub Actions, documentation, and screenshots
 
 ### **PHASE 1**
 
+#### Schwab API
 
+- App created on Schwab developer portal
+- created .env file with schwab creds
+- pip installed schwab-py
+- created data/raw/ and scripts/ folder, along with python scripts for auth, price_history, quotes.
