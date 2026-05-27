@@ -204,6 +204,7 @@ dbt will be **valuable** here because this project has a lot of **calculated bus
 
 Example dbt model structure:
 
+```text
 models/
 ├── staging/
 │   ├── stg_schwab_quotes.sql
@@ -222,6 +223,7 @@ models/
 └── analytics/
     ├── portfolio_recommendations.sql
     └── risk_summary.sql
+```
 
 ### 5. Data quality: dbt tests + [optional] Great Expectations
 
@@ -259,6 +261,7 @@ This is good for:
 
 Example S3 layout:
 
+```text
 s3://dividend-portfolio-raw/
 ├── schwab/
 │   ├── quotes/load_date=2026-05-11/
@@ -267,6 +270,7 @@ s3://dividend-portfolio-raw/
 │   └── screener/load_date=2026-05-11/
 └── treasury/
     └── rates/load_date=2026-05-11/
+```
 
 ### 7. Portfolio analytics layer: Python + SQL
 
