@@ -127,6 +127,7 @@ Therefore, at a minimum, the dividend portfolio return has to clear 6%. Let's ai
 
 Possible daabase layout:
 
+```text
 DIVIDEND_PORTFOLIO_DB
 ├── RAW
 │   ├── raw_schwab_quotes
@@ -158,6 +159,7 @@ DIVIDEND_PORTFOLIO_DB
     ├── income_projection
     ├── risk_exposure
     └── rebalance_suggestions
+```
 
 Snowflake also has *dynamic tables, tasks, streams, and Cortex AI functions,* which could be useful later for *automated refreshes, incremental transformations, and **AI-powered explanations*** inside the warehouse.
 
