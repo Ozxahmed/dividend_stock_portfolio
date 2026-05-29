@@ -1,10 +1,12 @@
 # Dividend Stock Portfolio
 
-This project answers the question: “Can I build a dividend portfolio that can return a minimum 8% return (dividend + stock appreciation), while beating low-risk alternatives after accounting for volatility and drawdowns?”
+This project answers the question:
+
+*“Can I build a dividend portfolio that can return a minimum 8% return (dividend + stock appreciation), while beating low-risk alternatives after accounting for volatility and drawdowns?”*
 
 ## Metrics
 
-Metrics split across **five Buckets**:
+Metrics collected and calculated will be split across **five Buckets**:
 
 ### 1. Dividend return metrics
 
@@ -225,7 +227,7 @@ models/
     └── risk_summary.sql
 ```
 
-### 5. Data quality: dbt tests + [optional] Great Expectations
+### 5. Data quality: dbt tests + Great Expectations [optional]
 
 use dbt tests for:
 
@@ -243,7 +245,7 @@ accepted_range:
   - payout_ratio between 0 and 300
 ```
 
-Later add **Great Expectations** if needed, for more advanced data quality check.
+Later, when time permits, I'll add **Great Expectations** for more advanced data quality check.
 
 ### 6. Storage/archive layer: S3
 
@@ -310,7 +312,7 @@ Example **optimizer constraints**:
 
 ### 8. App/dashboard layer: Streamlit
 
-Use **Streamlit** for front end. Possible app pages:
+**Streamlit** is used for front end. Possible app pages:
 
 1. Portfolio Goal Input
    - target monthly income
@@ -352,4 +354,25 @@ Use **Streamlit** for front end. Possible app pages:
 
 ### 9. BI layer: Tableau
 
-Add at end, this can provide portfolio/resume-friendly analytics screenshots.
+When time permits, this can provide portfolio analytics screenshots.
+
+## MVP
+
+For the initial Minimum Viable Product, only the following metrics will be calculated.
+
+| Metric                          | Bucket                              |
+| ------------------------------- | ----------------------------------- |
+| **Dividend yield**              | *1. Dividend return metrics*        |
+| **5-year dividend growth CAGR** | *1. Dividend return metrics*        |
+| **Payout ratio**                | *2. Dividend safety metrics*        |
+| **Free cash flow payout ratio** | *2. Dividend safety metrics*        |
+| **Revenue growth**              | *2. Dividend safety metrics*        |
+| **EPS growth**                  | *2. Dividend safety metrics*        |
+| **Total return CAGR**           | *3. Total return metrics*           |
+| **Volatility**                  | *3. Total return metrics*           |
+| **Max drawdown**                | *3. Total return metrics*           |
+| **Sector allocation**           | *5. Portfolio construction metrics* |
+| **Weighted portfolio yield**    | *5. Portfolio construction metrics* |
+| **Weighted total return**       | *5. Portfolio construction metrics* |
+
+The MVP is being tracked in a separate [mardkwon document](WIP.md).
