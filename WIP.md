@@ -15,12 +15,16 @@ The above will change as the project progresses. The README will be updated as n
   - [MVP Metrics](#mvp-metrics)
   - [Data Sources](#data-sources)
     - [Schwab API](#schwab-api)
+    - [Financial Modeling Prep (FMP)](#financial-modeling-prep-fmp)
   - [MVP Stack](#mvp-stack)
   - [MVP Architecture](#mvp-architecture)
   - [MVP Plan](#mvp-plan)
-    - [**PHASE 1**](#phase-1)
+  - [**PHASE 1**](#phase-1)
+    - [Metrics](#metrics)
       - [Dividend Yield](#dividend-yield)
       - [5-year dividend growth CAGR](#5-year-dividend-growth-cagr)
+      - [Payout Ratio](#payout-ratio)
+      - [Free cash flow payout ratio](#free-cash-flow-payout-ratio)
 
 ## MVP Metrics
 
@@ -31,7 +35,7 @@ For the MVP, I'm only going to focus on the following metrics:
 | [x] | **Dividend yield**              | *1. Dividend return metrics*        | Schwab quotes API      | Confirmed  | Use `fundamental.divYield`; also store `divAmount`, `divPayAmount`, `divFreq`, and current price. |
 | [x] | **5-year dividend growth CAGR** | *1. Dividend return metrics*        | FMP dividends endpoint | Confirmed  | Use completed years only; for AAPL: 2020 → 2025 = `4.99%`.                                        |
 | [x] | **Payout ratio**                | *2. Dividend safety metrics*        | Schwab quotes API      | Not tested | Earnings payout ratio: `annual_dividend_per_share / eps`.                                         |
-| [ ] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | TBD                    | Not tested | Better sustainability check than earnings payout ratio.                                           |
+| [*] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | TBD                    | Not tested | Better sustainability check than earnings payout ratio.                                           |
 | [ ] | **Revenue growth**              | *2. Dividend safety metrics*        | TBD                    | Not tested | Helps evaluate whether the business can support future dividends.                                 |
 | [ ] | **EPS growth**                  | *2. Dividend safety metrics*        | TBD                    | Not tested | Supports future dividend increases.                                                               |
 | [ ] | **Total return CAGR**           | *3. Total return metrics*           | TBD                    | Not tested | Annualized total return, ideally including dividends plus price appreciation.                     |
@@ -140,7 +144,7 @@ Add optimizer + portfolio simulator
 Phase 4
 Add Docker, GitHub Actions, documentation, and screenshots
 
-### **PHASE 1**
+## **PHASE 1**
 
 - App created on Schwab Developer Portal
 - .env file created with schwab creds
@@ -151,8 +155,11 @@ Add Docker, GitHub Actions, documentation, and screenshots
 - schwab-py can give us the following:
   - quote/fundamental snapshot --> ticker open/close $, dividend $, 52 wk high/low $, etc.
   - price history
-- To calculate `5-year dividend growth CAGR`, need historical dividends:
+- To calculate `5-year dividend growth CAGR`, need historical dividends
   - Signed up for Financial Modeling Prep (FMP) free tier plan
+  - Can fetch historical data, up to 5 years.
+
+### Metrics
 
 #### Dividend Yield
 
@@ -168,9 +175,9 @@ Available from Quotes call. In addition to dividend yield, collect following dat
 
 #### 5-year dividend growth CAGR
 
-| Item        | Answer                                                                                                                                                               |
+|             |                                                                                                                                                                      |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bucket      | Dividend return metrics                                                                                                                                              |
+| Bucket      | 1 - Dividend return metrics                                                                                                                                          |
 | Formula     | $\left( \frac{\text{dividend\_per\_share\_current\_year}}{\text{dividend\_per\_share\_5\_years\_ago}} \right)^{\frac{1}{5}} - 1$                                     |
 | Purpose     | Measures how fast dividend income has compounded over the last 5 years. It answers the question: “Has the company been growing its dividend meaningfully over time?” |
 | Data Needed | historical annual dividend per share                                                                                                                                 |
@@ -178,9 +185,19 @@ Available from Quotes call. In addition to dividend yield, collect following dat
 
 #### Payout Ratio
 
-| Item        | Answer                                        |
-| ----------- | --------------------------------------------- |
-| Bucket      | 2. Dividend safety metrics                    |
-| Formula     | annual_dividend_per_share / eps               |
-| Data needed | `fundamental.divAmount` and `fundamental.eps` |
-| Main source | Schwab quotes API                             |
+|             |                                                          |
+| ----------- | -------------------------------------------------------- |
+| Bucket      | 2 - Dividend safety metrics                              |
+| Formula     | $\frac{\text{annual\_dividend\_per\_share}}{\text{eps}}$ |
+| Data needed | `fundamental.divAmount` and `fundamental.eps`            |
+| Main source | Schwab quotes API                                        |
+
+#### Free cash flow payout ratio
+
+|             |                                                                                                                                                                                                                            |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bucket      | 2 - Dividend safety metrics                                                                                                                                                                                                |
+| Formula     | $\frac{\text{total\_dividends\_paid}}{\text{free\_cash\_flow}}$                                                                                                                                                            |
+| Purpose     | Measures whether the company’s dividend is supported by actual cash generation. This is usually a stronger dividend safety check than earnings payout ratio because dividends are paid with cash, not accounting earnings. |
+| Data Needed | Total dividends paid and free cash flow                                                                                                                                                                                    |
+| Main Source | FMP API                                                                                                                                                                                                                    |
