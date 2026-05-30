@@ -163,41 +163,56 @@ Add Docker, GitHub Actions, documentation, and screenshots
 
 #### Dividend Yield
 
-Available from Quotes call. In addition to dividend yield, collect following data:
+Available from Schwab APO Quotes call. In addition to dividend yield, collect following data:
 
-- ticker
-- quote_date
-- current_price
-- annual_dividend_per_share
-- **dividend_yield**
-- dividend_frequency
-- dividend_pay_amount
+- `ticker`
+- `quote_date`
+- `current_price`
+- `annual_dividend_per_share`
+- **`dividend_yield`**
+- `dividend_frequency`
+- `dividend_pay_amount`
 
 #### 5-year dividend growth CAGR
 
 |             |                                                                                                                                                                      |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bucket      | 1 - Dividend return metrics                                                                                                                                          |
-| Formula     | $\left( \frac{\text{dividend\_per\_share\_current\_year}}{\text{dividend\_per\_share\_5\_years\_ago}} \right)^{\frac{1}{5}} - 1$                                     |
+| Formula     | $\left( \frac{D_{\text{current}}}{D_{\text{5 years ago}}} \right)^{\frac{1}{5}} - 1$                                                                                 |
 | Purpose     | Measures how fast dividend income has compounded over the last 5 years. It answers the question: “Has the company been growing its dividend meaningfully over time?” |
 | Data Needed | historical annual dividend per share                                                                                                                                 |
 | Main Source | FMP API                                                                                                                                                              |
 
+Where:
+
+- $D_{\text{current}}$ = annual dividend per share for the current completed year
+- $D_{\text{5 years ago}}$ = annual dividend per share from 5 years ago
+
 #### Payout Ratio
 
-|             |                                                          |
-| ----------- | -------------------------------------------------------- |
-| Bucket      | 2 - Dividend safety metrics                              |
-| Formula     | $\frac{\text{annual\_dividend\_per\_share}}{\text{eps}}$ |
-| Data needed | `fundamental.divAmount` and `fundamental.eps`            |
-| Main source | Schwab quotes API                                        |
+| Item        | Answer                                                        |
+| ----------- | ------------------------------------------------------------- |
+| Bucket      | 2 - Dividend safety metrics                                   |
+| Formula     | $\frac{D_{\text{annual}}}{EPS}$                               |
+| Data Needed | `fundamental.divAmount` and `fundamental.eps`                 |
+| Main Source | Schwab quotes API                                             |
+
+Where:
+
+- $D_{\text{annual}}$ = annual dividend per share
+- $EPS$ = earnings per share
 
 #### Free cash flow payout ratio
 
 |             |                                                                                                                                                                                                                            |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bucket      | 2 - Dividend safety metrics                                                                                                                                                                                                |
-| Formula     | $\frac{\text{total\_dividends\_paid}}{\text{free\_cash\_flow}}$                                                                                                                                                            |
+| Formula     | $\frac{D_{\text{paid}}}{FCF}$                                                                                                                                                                                              |
 | Purpose     | Measures whether the company’s dividend is supported by actual cash generation. This is usually a stronger dividend safety check than earnings payout ratio because dividends are paid with cash, not accounting earnings. |
 | Data Needed | Total dividends paid and free cash flow                                                                                                                                                                                    |
 | Main Source | FMP API                                                                                                                                                                                                                    |
+
+Where:
+
+- $D_{\text{paid}}$ = total dividends paid
+- $FCF$ = free cash flow
