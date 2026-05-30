@@ -4,6 +4,30 @@ This project answers the question:
 
 *“Can I build a dividend portfolio that can return a minimum 8% return (dividend + stock appreciation), while beating low-risk alternatives after accounting for volatility and drawdowns?”*
 
+## TOC
+
+- [Dividend Stock Portfolio](#dividend-stock-portfolio)
+  - [TOC](#toc)
+  - [Metrics](#metrics)
+    - [1. Dividend return metrics](#1-dividend-return-metrics)
+    - [2. Dividend safety metrics](#2-dividend-safety-metrics)
+    - [3. Total return metrics](#3-total-return-metrics)
+    - [4. Valuation metrics](#4-valuation-metrics)
+    - [5. Portfolio construction metrics](#5-portfolio-construction-metrics)
+  - [Scoring Model](#scoring-model)
+  - [T-bills](#t-bills)
+  - [Stack](#stack)
+    - [1. Data warehouse: Snowflake](#1-data-warehouse-snowflake)
+    - [2. Ingestion layer: Python](#2-ingestion-layer-python)
+    - [3. Orchestration: Airflow](#3-orchestration-airflow)
+    - [4. Transformation layer: dbt](#4-transformation-layer-dbt)
+    - [5. Data quality: dbt tests + Great Expectations](#5-data-quality-dbt-tests--great-expectations)
+    - [6. Storage/archive layer: S3](#6-storagearchive-layer-s3)
+    - [7. Portfolio analytics layer: Python + SQL](#7-portfolio-analytics-layer-python--sql)
+    - [8. App/dashboard layer: Streamlit](#8-appdashboard-layer-streamlit)
+    - [9. BI layer: Tableau](#9-bi-layer-tableau)
+  - [MVP](#mvp)
+
 ## Metrics
 
 Metrics collected and calculated will be split across **five Buckets**:
@@ -227,7 +251,7 @@ models/
     └── risk_summary.sql
 ```
 
-### 5. Data quality: dbt tests + Great Expectations [optional]
+### 5. Data quality: dbt tests + Great Expectations
 
 use dbt tests for:
 
@@ -375,4 +399,4 @@ For the initial Minimum Viable Product, only the following metrics will be calcu
 | **Weighted portfolio yield**    | *5. Portfolio construction metrics* |
 | **Weighted total return**       | *5. Portfolio construction metrics* |
 
-The MVP is being tracked in a separate [mardkwon document](WIP.md).
+The MVP is being tracked in a separate [markdown document](WIP.md).
