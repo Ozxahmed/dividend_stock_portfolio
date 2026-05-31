@@ -31,20 +31,20 @@ The above will change as the project progresses. The README will be updated as n
 
 For the MVP, I'm only going to focus on the following metrics:
 
-| y/n | Metric                          | Bucket                              | Source                  | Status     | Notes                                                                                             |
-| --- | ------------------------------- | ----------------------------------- | ----------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
-| [x] | **Dividend yield**              | *1. Dividend return metrics*        | Schwab quotes API       | Confirmed  | Use `fundamental.divYield`; also store `divAmount`, `divPayAmount`, `divFreq`, and current price. |
-| [x] | **5-year dividend growth CAGR** | *1. Dividend return metrics*        | FMP dividends endpoint  | Confirmed  | Use completed years only; for AAPL: 2020 → 2025 = `4.99%`.                                        |
-| [x] | **Payout ratio**                | *2. Dividend safety metrics*        | Schwab quotes API       | Confirmed  | Use `fundamental.divAmount / fundamental.eps`; for AAPL: `1.08 / 7.46 = 14.48%`.                  |
-| [x] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | FMP cash flow statement | Confirmed  | Use `abs(netDividendsPaid) / freeCashFlow`; for AAPL FY2025: `15.61%`.                            |
-| [*] | **Revenue growth CAGR**         | *2. Dividend safety metrics*        | TBD                     | Not tested | Helps evaluate whether the business can support future dividends.                                 |
-| [ ] | **EPS growth**                  | *2. Dividend safety metrics*        | TBD                     | Not tested | Supports future dividend increases.                                                               |
-| [ ] | **Total return CAGR**           | *3. Total return metrics*           | TBD                     | Not tested | Annualized total return, ideally including dividends plus price appreciation.                     |
-| [ ] | **Volatility**                  | *3. Total return metrics*           | TBD                     | Not tested | Risk profile / price movement variability.                                                        |
-| [ ] | **Max drawdown**                | *3. Total return metrics*           | TBD                     | Not tested | Worst peak-to-trough loss.                                                                        |
-| [ ] | **Sector allocation**           | *5. Portfolio construction metrics* | TBD                     | Not tested | Concentration/diversification control.                                                            |
-| [ ] | **Weighted portfolio yield**    | *5. Portfolio construction metrics* | TBD                     | Not tested | Portfolio-level income rate. Same idea as weighted average yield.                                 |
-| [ ] | **Weighted total return**       | *5. Portfolio construction metrics* | TBD                     | Not tested | Portfolio-level total return contribution across holdings.                                        |
+| y/n | Metric                          | Bucket                              | Source                        | Status     | Notes                                                                                             |
+| --- | ------------------------------- | ----------------------------------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| [x] | **Dividend yield**              | *1. Dividend return metrics*        | Schwab quotes API             | Confirmed  | Use `fundamental.divYield`; also store `divAmount`, `divPayAmount`, `divFreq`, and current price. |
+| [x] | **5-year dividend growth CAGR** | *1. Dividend return metrics*        | FMP dividends endpoint        | Confirmed  | Use completed years only; for AAPL: 2020 → 2025 = `4.99%`.                                        |
+| [x] | **Payout ratio**                | *2. Dividend safety metrics*        | Schwab quotes API             | Confirmed  | Use `fundamental.divAmount / fundamental.eps`; for AAPL: `1.08 / 7.46 = 14.48%`.                  |
+| [x] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | FMP cash flow statement       | Confirmed  | Use `abs(netDividendsPaid) / freeCashFlow`; for AAPL FY2025: `15.61%`.                            |
+| [x] | **Revenue growth**              | *2. Dividend safety metrics*        | FMP income statement endpoint | Confirmed  | Use completed fiscal-year revenue. For AAPL: FY2021 → FY2025 = `3.28%` CAGR over 4 years.         |
+| [ ] | **EPS growth**                  | *2. Dividend safety metrics*        | TBD                           | Not tested | Supports future dividend increases.                                                               |
+| [ ] | **Total return CAGR**           | *3. Total return metrics*           | TBD                           | Not tested | Annualized total return, ideally including dividends plus price appreciation.                     |
+| [ ] | **Volatility**                  | *3. Total return metrics*           | TBD                           | Not tested | Risk profile / price movement variability.                                                        |
+| [ ] | **Max drawdown**                | *3. Total return metrics*           | TBD                           | Not tested | Worst peak-to-trough loss.                                                                        |
+| [ ] | **Sector allocation**           | *5. Portfolio construction metrics* | TBD                           | Not tested | Concentration/diversification control.                                                            |
+| [ ] | **Weighted portfolio yield**    | *5. Portfolio construction metrics* | TBD                           | Not tested | Portfolio-level income rate. Same idea as weighted average yield.                                 |
+| [ ] | **Weighted total return**       | *5. Portfolio construction metrics* | TBD                           | Not tested | Portfolio-level total return contribution across holdings.                                        |
 
 ## Data Sources
 

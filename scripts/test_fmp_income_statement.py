@@ -1,4 +1,5 @@
 from src.config import load_env_variable
+from src.file_utils import save_json
 import requests
 import pandas as pd
 
@@ -34,22 +35,34 @@ response.raise_for_status()
 # convert response to python json object
 data = response.json()
 
+# stop script if insufficient data
+if len(data) <= 1:
+    raise ValueError("Insufficient data to calculate revenue growth CAGR")
+
+# display type, length, and first record of data
 print(type(data))
 print(len(data))
 print(data[0])
 
-# stop script if insufficient data
-if len(data) == 1:
-    raise ValueError("Insufficient data to calculate revenue growth CAGR")
+# save json response to file
+save_json(
+    data=data,
+    symbol=symbol,
+    dataset_name="income_statement",
+)
 
-# convert list of records to df
+# convert records json object to pandas dataframe
 df = pd.DataFrame(data)
 
 # display df
-df.head()
+print(df.head())
 
-# keep cols needed to calculate rev growth CAGR
-revenue_df = df[["symbol", "date", "fiscalYear", "period", "revenue"]].copy()
+# keep cols and rows needed to calculate rev growth CAGR
+revenue_df = df.loc[df["period"] == "FY", ["symbol", "date", "fiscalYear", "period", "revenue"]].copy()
+
+# stop script if insufficient annual revenue data after filtering for FY records 
+if len(revenue_df) <= 1:
+    raise ValueError("Insufficient annual revenue data after filtering for FY records")
 
 # confirm fiscalYear and revenue are numeric
 revenue_df['fiscalYear'] = pd.to_numeric(revenue_df['fiscalYear'], errors="coerce")
@@ -69,6 +82,12 @@ start_revenue = start_row['revenue']
 end_revenue = end_row['revenue']
 
 number_of_years = end_year - start_year
+
+if number_of_years <= 0:
+    raise ValueError("Number of years must be greater than zero")
+
+if start_revenue <= 0:
+    raise ValueError("Start revenue must be greater than zero")
 
 rev_growth_cagr = (end_revenue / start_revenue) ** (1 / number_of_years) - 1
 rev_growth_cagr_percent = round(rev_growth_cagr * 100, 2)

@@ -1,3 +1,7 @@
+"""
+Environment variables / project settings
+"""
+
 import os
 from pathlib import Path
 
