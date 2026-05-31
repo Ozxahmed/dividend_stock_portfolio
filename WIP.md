@@ -25,7 +25,7 @@ The above will change as the project progresses. The README will be updated as n
       - [5-year dividend growth CAGR](#5-year-dividend-growth-cagr)
       - [Payout Ratio](#payout-ratio)
       - [Free cash flow payout ratio](#free-cash-flow-payout-ratio)
-      - [5-Year Revenue growth CAGR](#5-year-revenue-growth-cagr)
+      - [Revenue growth CAGR](#revenue-growth-cagr)
 
 ## MVP Metrics
 
@@ -37,7 +37,7 @@ For the MVP, I'm only going to focus on the following metrics:
 | [x] | **5-year dividend growth CAGR** | *1. Dividend return metrics*        | FMP dividends endpoint  | Confirmed  | Use completed years only; for AAPL: 2020 → 2025 = `4.99%`.                                        |
 | [x] | **Payout ratio**                | *2. Dividend safety metrics*        | Schwab quotes API       | Confirmed  | Use `fundamental.divAmount / fundamental.eps`; for AAPL: `1.08 / 7.46 = 14.48%`.                  |
 | [x] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | FMP cash flow statement | Confirmed  | Use `abs(netDividendsPaid) / freeCashFlow`; for AAPL FY2025: `15.61%`.                            |
-| [*] | **5-year Revenue growth CAGR**  | *2. Dividend safety metrics*        | TBD                     | Not tested | Helps evaluate whether the business can support future dividends.                                 |
+| [*] | **Revenue growth CAGR**         | *2. Dividend safety metrics*        | TBD                     | Not tested | Helps evaluate whether the business can support future dividends.                                 |
 | [ ] | **EPS growth**                  | *2. Dividend safety metrics*        | TBD                     | Not tested | Supports future dividend increases.                                                               |
 | [ ] | **Total return CAGR**           | *3. Total return metrics*           | TBD                     | Not tested | Annualized total return, ideally including dividends plus price appreciation.                     |
 | [ ] | **Volatility**                  | *3. Total return metrics*           | TBD                     | Not tested | Risk profile / price movement variability.                                                        |
@@ -218,15 +218,16 @@ Where:
 - $D_{\text{paid}}$ = total dividends paid
 - $FCF$ = free cash flow
 
-#### 5-Year Revenue growth CAGR
+#### Revenue growth CAGR
 
-| Item             | Answer                                                                                                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Bucket           | Dividend safety metrics                                                                                                                                                                                            |
-| Formula          | $\left( \frac{\text{revenue_current_year}}{\text{revenue_5_years_ago}} \right)^{\frac{1}{5}} - 1$                                                                                                                  |
-| Purpose          | Measures whether the company’s top-line business is growing enough to support future earnings, cash flow, and dividend growth. Weak or declining revenue can be an early warning sign for dividend sustainability. |
-| Data Needed      | Historical annual revenue for at least 5 completed fiscal years                                                                                                                                                    |
-| Main Source      | FMP API                                                                                                                                                                                                            |
-| Endpoint to Test | `https://financialmodelingprep.com/stable/income-statement?symbol=AAPL`                                                                                                                                            |
-| Expected Fields  | `symbol`, `date`, `fiscalYear`, `period`, `revenue`                                                                                                                                                                |
-| Status           | Not tested yet                                                                                                                                                                                                     |
+The FMP income statement end point provides for 4-year CAGR, instead of the 5-year that is best for this project. Therefore, we're going to use the 4-year CAGR to calculate revenue growth.
+
+| Item               | Answer                                                                                                                                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Bucket             | Dividend safety metrics                                                                                                                                                                                            |
+| Formula            | $\left( \frac{\text{revenue_current_year}}{\text{revenue_5_years_ago}} \right)^{\frac{1}{5}} - 1$                                                                                                                  |
+| Purpose            | Measures whether the company’s top-line business is growing enough to support future earnings, cash flow, and dividend growth. Weak or declining revenue can be an early warning sign for dividend sustainability. |
+| Data Needed        | Historical annual revenue for completed fiscal years                                                                                                                                                               |
+| Main Source        | FMP API                                                                                                                                                                                                            |
+| Endpoint           | `https://financialmodelingprep.com/stable/income-statement?symbol=AAPL`                                                                                                                                            |
+| Current Limitation | Free FMP response gives FY2021–FY2025 for AAPL, which supports a 4-year CAGR, not a true 5-year CAGR.                                                                                                              |
