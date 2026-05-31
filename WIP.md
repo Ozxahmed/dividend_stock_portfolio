@@ -220,14 +220,19 @@ Where:
 
 #### Revenue growth CAGR
 
-The FMP income statement end point provides for 4-year CAGR, instead of the 5-year that is best for this project. Therefore, we're going to use the 4-year CAGR to calculate revenue growth.
+The FMP income statement endpoint currently provides enough completed annual records for a 4-year CAGR, not the 5-year CAGR that would be ideal for this project. Therefore, we're going to use the 4-year CAGR to calculate revenue growth for now.
 
 | Item               | Answer                                                                                                                                                                                                             |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Bucket             | Dividend safety metrics                                                                                                                                                                                            |
-| Formula            | $\left( \frac{\text{revenue_current_year}}{\text{revenue_5_years_ago}} \right)^{\frac{1}{5}} - 1$                                                                                                                  |
+| Bucket             | 2 - Dividend safety metrics                                                                                                                                                                                        |
+| Formula            | $\left( \frac{R_{\text{current}}}{R_{\text{4 years ago}}} \right)^{\frac{1}{4}} - 1$                                                                                                                               |
 | Purpose            | Measures whether the company’s top-line business is growing enough to support future earnings, cash flow, and dividend growth. Weak or declining revenue can be an early warning sign for dividend sustainability. |
 | Data Needed        | Historical annual revenue for completed fiscal years                                                                                                                                                               |
 | Main Source        | FMP API                                                                                                                                                                                                            |
 | Endpoint           | `https://financialmodelingprep.com/stable/income-statement?symbol=AAPL`                                                                                                                                            |
 | Current Limitation | Free FMP response gives FY2021–FY2025 for AAPL, which supports a 4-year CAGR, not a true 5-year CAGR.                                                                                                              |
+
+Where:
+
+- $R_{\text{current}}$ = revenue for the most recent completed fiscal year
+- $R_{\text{4 years ago}}$ = revenue from 4 completed fiscal years ago
