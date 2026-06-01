@@ -26,6 +26,7 @@ The above will change as the project progresses. The README will be updated as n
       - [Payout Ratio](#payout-ratio)
       - [Free cash flow payout ratio](#free-cash-flow-payout-ratio)
       - [Revenue growth CAGR](#revenue-growth-cagr)
+      - [EPS growth CAGR](#eps-growth-cagr)
 
 ## MVP Metrics
 
@@ -37,8 +38,8 @@ For the MVP, I'm only going to focus on the following metrics:
 | [x] | **5-year dividend growth CAGR** | *1. Dividend return metrics*        | FMP dividends endpoint        | Confirmed  | Use completed years only; for AAPL: 2020 → 2025 = `4.99%`.                                        |
 | [x] | **Payout ratio**                | *2. Dividend safety metrics*        | Schwab quotes API             | Confirmed  | Use `fundamental.divAmount / fundamental.eps`; for AAPL: `1.08 / 7.46 = 14.48%`.                  |
 | [x] | **Free cash flow payout ratio** | *2. Dividend safety metrics*        | FMP cash flow statement       | Confirmed  | Use `abs(netDividendsPaid) / freeCashFlow`; for AAPL FY2025: `15.61%`.                            |
-| [x] | **Revenue growth**              | *2. Dividend safety metrics*        | FMP income statement endpoint | Confirmed  | Use completed fiscal-year revenue. For AAPL: FY2021 → FY2025 = `3.28%` CAGR over 4 years.         |
-| [ ] | **EPS growth**                  | *2. Dividend safety metrics*        | TBD                           | Not tested | Supports future dividend increases.                                                               |
+| [x] | **Revenue growth CAGR**         | *2. Dividend safety metrics*        | FMP income statement endpoint | Confirmed  | Use completed fiscal-year revenue. For AAPL: FY2021 → FY2025 = `3.28%` CAGR over 4 years.         |
+| [*] | **EPS growth CAGR**             | *2. Dividend safety metrics*        | TBD                           | testing    | Supports future dividend increases.                                                               |
 | [ ] | **Total return CAGR**           | *3. Total return metrics*           | TBD                           | Not tested | Annualized total return, ideally including dividends plus price appreciation.                     |
 | [ ] | **Volatility**                  | *3. Total return metrics*           | TBD                           | Not tested | Risk profile / price movement variability.                                                        |
 | [ ] | **Max drawdown**                | *3. Total return metrics*           | TBD                           | Not tested | Worst peak-to-trough loss.                                                                        |
@@ -229,10 +230,27 @@ The FMP income statement endpoint currently provides enough completed annual rec
 | Purpose            | Measures whether the company’s top-line business is growing enough to support future earnings, cash flow, and dividend growth. Weak or declining revenue can be an early warning sign for dividend sustainability. |
 | Data Needed        | Historical annual revenue for completed fiscal years                                                                                                                                                               |
 | Main Source        | FMP API                                                                                                                                                                                                            |
-| Endpoint           | `https://financialmodelingprep.com/stable/income-statement?symbol=AAPL`                                                                                                                                            |
 | Current Limitation | Free FMP response gives FY2021–FY2025 for AAPL, which supports a 4-year CAGR, not a true 5-year CAGR.                                                                                                              |
 
 Where:
 
 - $R_{\text{current}}$ = revenue for the most recent completed fiscal year
 - $R_{\text{4 years ago}}$ = revenue from 4 completed fiscal years ago
+
+#### EPS growth CAGR
+
+The FMP income statement endpoint currently provides enough completed annual records for a 4-year CAGR, not the 5-year CAGR that would be ideal for this project. Therefore, we're going to use the 4-year CAGR to calculate EPS growth for now.
+
+| Item               | Answer                                                                                                                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bucket             | 2 - Dividend safety metrics                                                                                                                                                                              |
+| Formula            | $\left( \frac{EPS_{\text{current}}}{EPS_{\text{4 years ago}}} \right)^{\frac{1}{4}} - 1$                                                                                                                 |
+| Purpose            | Measures whether the company’s earnings per share are growing enough to support future dividend increases. EPS growth helps show whether dividend growth is backed by improving profitability per share. |
+| Data Needed        | Historical annual EPS for completed fiscal years                                                                                                                                                         |
+| Main Source        | FMP API                                                                                                                                                                                                  |
+| Current Limitation | Free FMP response gives FY2021–FY2025 for AAPL, which supports a 4-year CAGR, not a true 5-year CAGR.                                                                                                    |
+
+Where:
+
+- $EPS_{\text{current}}$ = earnings per share for the most recent completed fiscal year
+- $EPS_{\text{4 years ago}}$ = earnings per share from 4 completed fiscal years ago
