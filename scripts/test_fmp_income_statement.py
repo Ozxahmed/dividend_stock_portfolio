@@ -1,7 +1,8 @@
+import pandas as pd
+import requests
+
 from src.config import load_env_variable
 from src.file_utils import save_json
-import requests
-import pandas as pd
 
 # load fmp api key
 api_key = load_env_variable("FMP_API_KEY")
@@ -58,28 +59,30 @@ df = pd.DataFrame(data)
 print(df.head())
 
 # keep cols and rows needed to calculate rev growth CAGR
-revenue_df = df.loc[df["period"] == "FY", ["symbol", "date", "fiscalYear", "period", "revenue"]].copy()
+revenue_df = df.loc[
+    df["period"] == "FY", ["symbol", "date", "fiscalYear", "period", "revenue"]
+].copy()
 
-# stop script if insufficient annual revenue data after filtering for FY records 
+# stop script if insufficient annual revenue data after filtering for FY records
 if len(revenue_df) <= 1:
     raise ValueError("Insufficient annual revenue data after filtering for FY records")
 
 # confirm fiscalYear and revenue are numeric
-revenue_df['fiscalYear'] = pd.to_numeric(revenue_df['fiscalYear'], errors="coerce")
-revenue_df['revenue'] = pd.to_numeric(revenue_df['revenue'], errors="coerce")
+revenue_df["fiscalYear"] = pd.to_numeric(revenue_df["fiscalYear"], errors="coerce")
+revenue_df["revenue"] = pd.to_numeric(revenue_df["revenue"], errors="coerce")
 
 # sort oldest to newest
-revenue_df = revenue_df.sort_values('fiscalYear')
+revenue_df = revenue_df.sort_values("fiscalYear")
 
 # calc rev growth CAGR
 start_row = revenue_df.iloc[0]
 end_row = revenue_df.iloc[-1]
 
-start_year = start_row['fiscalYear']
-end_year = end_row['fiscalYear']
+start_year = start_row["fiscalYear"]
+end_year = end_row["fiscalYear"]
 
-start_revenue = start_row['revenue']
-end_revenue = end_row['revenue']
+start_revenue = start_row["revenue"]
+end_revenue = end_row["revenue"]
 
 number_of_years = end_year - start_year
 

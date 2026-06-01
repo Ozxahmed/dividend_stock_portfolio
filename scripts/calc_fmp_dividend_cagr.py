@@ -13,7 +13,7 @@ def load_latest_dividend_file(symbol: str) -> list[dict]:
     latest_file = files[-1]
     print(f"Loading: {latest_file}")
 
-    with open(latest_file, "r") as f:
+    with open(latest_file) as f:
         return json.load(f)
 
 
@@ -68,7 +68,9 @@ def calculate_5y_dividend_cagr(annual_completed: pd.DataFrame) -> dict:
     end_row = annual_completed[annual_completed["year"] == end_year]
 
     if start_row.empty:
-        raise ValueError(f"No completed dividend data found for start year: {start_year}")
+        raise ValueError(
+            f"No completed dividend data found for start year: {start_year}"
+        )
 
     if end_row.empty:
         raise ValueError(f"No completed dividend data found for end year: {end_year}")

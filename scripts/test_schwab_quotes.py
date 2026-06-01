@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
-from schwab import auth # type: ignore
+from schwab import auth  # type: ignore
 
 
 def get_client():

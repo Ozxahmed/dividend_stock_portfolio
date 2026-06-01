@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from schwab import auth # type: ignore
+from schwab import auth  # type: ignore
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     print(f"Callback URL: {callback_url}")
     print(f"Token path: {token_path}")
 
-    client = auth.easy_client(
+    auth.easy_client(
         api_key=app_key,
         app_secret=app_secret,
         callback_url=callback_url,

@@ -34,7 +34,9 @@ params = {
 response = requests.get(url, params=params, timeout=30)
 
 # hide api key
-safe_url = response.url.replace(api_key, "REDACTED") if response.url else "URL not available"
+safe_url = (
+    response.url.replace(api_key, "REDACTED") if response.url else "URL not available"
+)
 
 # view api request
 print("Final URL:")
@@ -61,7 +63,9 @@ dividends_paid = latest_record["netDividendsPaid"]
 free_cash_flow = latest_record["freeCashFlow"]
 
 if free_cash_flow <= 0:
-    raise ValueError("Free cash flow is zero or negative; FCF payout ratio is not meaningful")
+    raise ValueError(
+        "Free cash flow is zero or negative; FCF payout ratio is not meaningful"
+    )
 
 fcf_payout_ratio = abs(dividends_paid) / free_cash_flow
 fcf_payout_ratio_pct = fcf_payout_ratio * 100

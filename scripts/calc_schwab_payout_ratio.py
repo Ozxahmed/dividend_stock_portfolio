@@ -13,7 +13,7 @@ def load_latest_quotes_file() -> dict:
     latest_file = files[-1]
     print(f"Loading: {latest_file}")
 
-    with open(latest_file, "r") as f:
+    with open(latest_file) as f:
         return json.load(f)
 
 
