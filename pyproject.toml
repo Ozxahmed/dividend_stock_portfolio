@@ -1,0 +1,41 @@
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+extend-exclude = ["notebooks"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors (like line length E501)
+    "F",   # Pyflakes (unused imports, undefined names)
+    "I",   # isort (import sorting)
+    "UP",  # pyupgrade (upgrades syntax to modern Python 3.12 specs)
+    "B",   # flake8-bugbear (finds likely bugs/design flaws)
+]
+
+# Rules to explicitly ignore
+ignore = []
+
+# Rules that Ruff is allowed to auto-fix
+fixable = [
+    "I001", # isort import sorting 
+    "F401", # Pyflakes unused imports
+    "UP015", # pyupgrade syntax upgrades (like f-string improvements)
+]
+
+# Rules Ruff should complain about but NEVER auto-change
+unfixable = [
+    "E501", # pycodestyle line length (88 chars)
+    "F841", # Pyflakes local variable assigned but never used
+]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
